@@ -8,7 +8,7 @@ router.post("/register",async (req,res)=>{
     //checking if already a same user exists in db
     
     try{
-        const userExist=await UserModel.findOne({mail: req.body.mail})
+        const userExist=await UserModel.findOne({email: req.body.email})
        
         if(userExist){
             
@@ -43,7 +43,7 @@ router.post("/register",async (req,res)=>{
 
 router.post("/login",async (req,res)=>{
     try {
-        const user= await UserModel.findOne({mail: req.body.mail})
+        const user= await UserModel.findOne({email: req.body.email})
         
         if(!user){
             res.send({
@@ -51,7 +51,7 @@ router.post("/login",async (req,res)=>{
                 message: "Please register yourself before logging in"
             })
         }
-        //if entered mail is already registered, then comparing the passwords
+        //if entered email is already registered, then comparing the passwords
         const validPassword= await bcrypt.compare(req.body.password, user.password) //returns true or false
         if(!validPassword){
             res.send({

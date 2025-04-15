@@ -1,8 +1,20 @@
 import React from 'react'
 import {Form , Input , Button} from 'antd'
 import {Link} from 'react-router-dom'
+//importing the login api function
+import {LoginUser} from "../apicalls/users.js"
 
 function Login() {
+  const handleSubmission=async (value)=>{
+    try{
+      const res = await LoginUser(value)
+      console.log(res)
+    }catch(error){
+      console.log(error)
+    }
+    
+  }
+
   return (
      <>
       <header className="App-header">
@@ -11,7 +23,7 @@ function Login() {
             <h1>Welcome back to BookYourTicket</h1>
           </section>
           <section className="right-section">
-            <Form layout="vertical">
+            <Form layout="vertical" onFinish={handleSubmission}>
               <Form.Item
                 label="Email"
                 name="email"
