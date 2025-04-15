@@ -3,6 +3,7 @@ const router=express.Router()
 const UserModel=require("../models/UserModel.js")
 const bcrypt=require("bcryptjs")
 
+//user register route
 router.post("/register",async (req,res)=>{
     //checking if already a same user exists in db
     
@@ -39,4 +40,32 @@ router.post("/register",async (req,res)=>{
 
 })
 
+
+router.post("/login",async (req,res)=>{
+    try {
+        const user= await UserModel.findOne({mail: req.body.mail})
+        
+        if(!user){
+            res.send({
+                success: false,
+                message: "Please register yourself before logging in"
+            })
+        }
+        //if entered mail is already registered, then comparing the passwords
+        const validPassword= await bcrypt.compare(req.body.password, user.password) //returns true or false
+        if(!validPassword){
+            res.send({
+                success: false,
+                message: "please enter a valid password"
+            })
+        }
+        res.send({
+            success: true,
+            message: "user login successful"
+        })
+        
+    } catch (error) {
+        console.log(error)
+    }
+})
 module.exports=router
