@@ -7,7 +7,8 @@ const UserSchema= new mongoose.Schema({
     mail: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     isAdmin: {type: Boolean, required: true, default: false},
-})
+    
+}, {timestamps:true})
 
-module.exports = mongoose.model("userCollection",UserSchema)
+module.exports = mongoose.model("userCollection", UserSchema)
 
