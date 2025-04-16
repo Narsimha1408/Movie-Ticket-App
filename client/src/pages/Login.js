@@ -1,5 +1,5 @@
 import React from 'react'
-import {Form , Input , Button} from 'antd'
+import {Form , Input , Button, message} from 'antd'
 import {Link} from 'react-router-dom'
 //importing the login api function
 import {LoginUser} from "../apicalls/users.js"
@@ -8,7 +8,13 @@ function Login() {
   const handleSubmission=async (value)=>{
     try{
       const res = await LoginUser(value)
-      console.log(res)
+      //console.log(res)
+      if(res.success){
+        message.success(res.message)
+      }
+      else{
+        message.error(res.message)
+      }
     }catch(error){
       console.log(error)
     }

@@ -13,7 +13,7 @@ router.post("/register",async (req,res)=>{
         if(userExist){
             
             res.send({
-                success: true,
+                success: false,
                 message: "user already exists",
             })
         }

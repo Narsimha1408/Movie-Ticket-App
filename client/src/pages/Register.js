@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message} from "antd";
 import {Link} from 'react-router-dom'
 //importing register api function 
 import { RegisterUser } from "../apicalls/users";
@@ -8,8 +8,14 @@ function Register() {
   const handleFormSubmission = async (value)=>{
       //console.log(value)
       try {
-        const res = await RegisterUser(value)
-        console.log(res)
+        const response = await RegisterUser(value)
+        console.log(response.message)
+        if(response.success){
+          message.success(response.message)
+        }
+        else{
+          message.error(response.message)
+        }
       } catch (error) {
         console.log(error)
       }
