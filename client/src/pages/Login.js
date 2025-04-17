@@ -11,6 +11,7 @@ function Login() {
       //console.log(res)
       if(res.success){
         message.success(res.message)
+        localStorage.setItem("token",res.token)
       }
       else{
         message.error(res.message)

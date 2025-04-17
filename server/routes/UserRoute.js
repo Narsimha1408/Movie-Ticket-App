@@ -61,7 +61,7 @@ router.post("/login",async (req,res)=>{
             })
         }
         //crating the JWT when a user logs in
-        const token = jwt.sign({userId:user._id},`${process.env.SECRET_KEY}`)
+        const token = jwt.sign({userId:user._id},`${process.env.SECRET_KEY}`,{expiresIn:'1d'})
         res.send({
             success: true,
             message: "user login successful",
