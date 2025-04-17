@@ -2,6 +2,7 @@ const express=require("express")
 const router=express.Router()
 const UserModel=require("../models/UserModel.js")
 const bcrypt=require("bcryptjs")
+const jwt=require("jsonwebtoken")
 
 //user register route
 router.post("/register",async (req,res)=>{
@@ -40,7 +41,7 @@ router.post("/register",async (req,res)=>{
 
 })
 
-
+//user login route
 router.post("/login",async (req,res)=>{
     try {
         const user= await UserModel.findOne({email: req.body.email})
@@ -59,9 +60,12 @@ router.post("/login",async (req,res)=>{
                 message: "please enter a valid password"
             })
         }
+        //crating the JWT when a user logs in
+        const token = jwt.sign({userId:user._id},`${process.env.SECRET_KEY}`)
         res.send({
             success: true,
-            message: "user login successful"
+            message: "user login successful",
+            token: token
         })
         
     } catch (error) {

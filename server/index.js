@@ -1,7 +1,10 @@
 //setting up express
 const express=require("express")
+require('dotenv').config()
 //setting up mongoose for mongoDB
 const mongoose=require("mongoose")
+//seting up env 
+
 const userRoutes=require("./routes/UserRoute.js")
 const app=express()
 const PORT = 5008
