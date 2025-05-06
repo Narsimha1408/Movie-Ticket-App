@@ -77,8 +77,13 @@ router.post("/login",async (req,res)=>{
 
 
 router.get("/get-current-user",authMiddleware,async (req,res)=>{
-//
-
+    const user= await UserModel.findById(req.body.userId).select("-password")
+    
+    res.send({
+        success: true,
+        message: "User authorized and token validated",
+        data: user,
+    })
 })
 
 module.exports=router
