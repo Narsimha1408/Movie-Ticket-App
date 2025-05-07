@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect}from 'react'
 import {Form , Input , Button, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 //importing the login api function
@@ -28,6 +28,12 @@ function Login() {
     }
     
   }
+
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      navigate("/")
+    }
+  },[])
 
   return (
      <>
