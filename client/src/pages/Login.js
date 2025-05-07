@@ -1,6 +1,6 @@
 import React from 'react'
 import {Form , Input , Button, message} from 'antd'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 //importing the login api function
 import {LoginUser} from "../apicalls/users.js"
 import { useDispatch } from 'react-redux'
@@ -8,6 +8,7 @@ import { setUser } from '../redux/userSlice.js'
 
 function Login() {
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   const handleSubmission=async (value)=>{
     
     try{
@@ -16,7 +17,8 @@ function Login() {
       if(res.success){
         message.success(res.message) //to populate user signed in meesgae on ui - inbuilt antd
         localStorage.setItem("token", res.token)
-        dispatch(setUser(res.user)) //coming from backend
+        // dispatch(setUser(res.user)) //coming from backend
+        navigate("/")  //navigating to home
       }
       else{
         message.error(res.message)

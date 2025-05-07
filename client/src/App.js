@@ -4,12 +4,13 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { useSelector, useDispatch } from 'react-redux';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   //checking redux
-  const val = useSelector((state)=>state.loader.loading)
-  const vals= useSelector((state)=>state.user)
-  console.log(vals)
+  // const val = useSelector((state)=>state.loader.loading)
+  // const vals= useSelector((state)=>state.user)
+  // console.log(vals)
 
 
   return (
@@ -18,7 +19,7 @@ function App() {
         
          <Routes>
       
-         <Route path='/' element={<Home/>}/>
+         <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
          <Route path='/login' element={<Login/>}/>
          <Route path='/register' element={<Register/>}/>
        
