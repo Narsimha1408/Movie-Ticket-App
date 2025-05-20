@@ -4,7 +4,7 @@ const loaderSlice=createSlice({
     name : 'loader',
 
     initialState : {
-        loading : true
+        loading : false
     },
 
     reducers : {   //if the state is true, show the loader else hide the loader
