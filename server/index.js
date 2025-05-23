@@ -5,7 +5,9 @@ require('dotenv').config()
 const mongoose=require("mongoose")
 //seting up env 
 
-const userRoutes=require("./routes/UserRoute.js")
+const userRoutes = require("./routes/UserRoute.js")
+const theatreRoutes = require("./routes/theatreRoute.js") 
+
 const app=express()
 const PORT = 5008
 
@@ -19,6 +21,7 @@ app.use(express.urlencoded())
 
 //configuring routes from routes file
 app.use("/api/user", userRoutes)
+app.use("/api/theatre", theatreRoutes)
 
 app.listen(PORT,()=>{
     console.log("server connected")

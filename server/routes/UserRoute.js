@@ -26,7 +26,7 @@ router.post("/register",async (req,res)=>{
         req.body.password=hashedPassword
 
 
-        const newUser = await UserModel(req.body)
+        const newUser = new UserModel(req.body)
         await newUser.save()
         res.send({
             success: true,
