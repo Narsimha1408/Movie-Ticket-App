@@ -13,7 +13,9 @@ export const RegisterUser = async (value)=>{
 export const LoginUser = async (value)=>{
     try{
         const response= await axiosInstance.post("api/user/login",value)
+        console.log(response.data)
         return response.data
+        
     }catch(error){
         console.log(error)
     }
@@ -21,6 +23,7 @@ export const LoginUser = async (value)=>{
 
 export const getCurrentUser  = async ()=>{
     try{
+        console.log(localStorage.getItem('token'),"check")
         const response = await axiosInstance.get("api/user/get-current-user")
         return response.data
     }catch(error){

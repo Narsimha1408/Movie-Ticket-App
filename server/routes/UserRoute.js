@@ -46,7 +46,7 @@ router.post("/register",async (req,res)=>{
 router.post("/login",async (req,res)=>{
     try {
         const user= await UserModel.findOne({email: req.body.email})
-        
+        console.log(user)
         if(!user){
             res.send({
                 success: false,
@@ -63,6 +63,7 @@ router.post("/login",async (req,res)=>{
         }
         //crating the JWT when a user logs in
         const token = jwt.sign({userId:user._id},`${process.env.SECRET_KEY}`,{expiresIn:'1d'})
+
         res.send({
             success: true,
             user: user,
@@ -78,7 +79,7 @@ router.post("/login",async (req,res)=>{
 
 router.get("/get-current-user",authMiddleware,async (req,res)=>{
     const user= await UserModel.findById(req.body.userId).select("-password")
-    
+    console.log(user,"82")
     res.send({
         success: true,
         message: "User authorized and token validated",

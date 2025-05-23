@@ -3,11 +3,11 @@ import {Form , Input , Button, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 //importing the login api function
 import {LoginUser} from "../apicalls/users.js"
-import { useDispatch } from 'react-redux'
-import { setUser } from '../redux/userSlice.js'
+//import { useDispatch } from 'react-redux'
+//import { setUser } from '../redux/userSlice.js'
 
 function Login() {
-  const dispatch = useDispatch()
+  //const dispatch = useDispatch()
   const navigate=useNavigate()
   const handleSubmission=async (value)=>{
     
@@ -33,6 +33,7 @@ function Login() {
     if(localStorage.getItem("token")){
       navigate("/")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
