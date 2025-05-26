@@ -1,4 +1,6 @@
 import React from "react";
+import {Button} from 'antd'
+import TheatreFormComponent from "./TheatreForm";
 
 const TheatreList=()=>{
 
@@ -6,7 +8,10 @@ const TheatreList=()=>{
 
     return (
         <>
-            this is Theatre list page
+            <div style={{ display: 'flex', justifyContent: 'end'}}>
+                <Button type="primary">Add Theatres</Button>
+            </div>  
+            <TheatreFormComponent></TheatreFormComponent>
         </>
     )
 }
