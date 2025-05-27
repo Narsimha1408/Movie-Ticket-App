@@ -16,7 +16,7 @@ router.post("/add-theatre",async (req,res)=>{
     }catch(error){
         res.send({
             success: false,
-            message: error.message
+            message: error.message 
         })
     }
 })

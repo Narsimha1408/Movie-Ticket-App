@@ -1,8 +1,32 @@
 import React from "react";
-import { Button, Form, Input, Row, Col, Modal } from "antd";
+import { Button, Form, Input, Row, Col, Modal, message } from "antd";
+import { RegisterTheatre } from "../../apicalls/theatres";
+import {useSelector} from 'react-redux';
 const { TextArea } = Input;
 
+
 const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
+  const {user} = useSelector((state)=>state.user)
+  console.log(user)
+
+  const handleSubmit=async (payload)=>{
+    try{
+      console.log(payload)
+      const res = await RegisterTheatre({...payload, owner: user._id}) ///sending form data with user id
+      
+      if(res.success){
+        setIsModalOpen(false)
+        message.success(res.message)
+      }
+      else{
+        message.error(res.message)
+      }
+    }
+    catch(error){
+      console.log(error)
+    }
+    
+  }
 
   const handleCancel=()=>{
     setIsModalOpen(false)
@@ -18,6 +42,8 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
         style={{ width: "100%" }}
         initialValues={{ remember: true }}
         autoComplete="off"
+        onFinish={handleSubmit}
+
       >
         <Row
           gutter={{
@@ -30,7 +56,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
           <Col span={24}>
             <Form.Item
               label="Theatre Name"
-              name="theatrename"
+              name="name"
               rules={[
                 { required: true, message: "Please enter the theatre name" },
               ]}
@@ -41,7 +67,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
           <Col span={24}>
             <Form.Item
               label="Theatre Address"
-              name="theatreaddress"
+              name="address"
               rules={[
                 { required: true, message: "Please enter the theatre address" },
               ]}
@@ -70,7 +96,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
               <Col span={12}>
                 <Form.Item
                   label="Phone Number"
-                  name="phone number"
+                  name="phone"
                   rules={[
                     { required: true, message: "Please enter your phone number" },
                   ]}
