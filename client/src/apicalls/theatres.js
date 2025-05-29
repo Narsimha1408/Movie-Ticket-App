@@ -1,4 +1,4 @@
-import { axiosInstance } from "./index.js";
+import axiosInstance from "./index.js";
 
 //theatre api calls based on server routes
 
@@ -35,4 +35,18 @@ export const DeleteTheatre = async (payload) => {
     catch(error){
         console.log(error)
     }
+}
+
+//getting all theatres once user in on profile page and theatres tab
+
+export const GetAllTheatres = async (payload)=>{
+    try {
+        console.log(payload)
+        const response = await axiosInstance.get("api/theatre/get-all-theatres-by-owner", {params: payload}) //always send payload in params while using axios get req
+        return response.data
+    }
+    catch(error){
+        console.log(error)
+    }
+
 }

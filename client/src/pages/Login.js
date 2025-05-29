@@ -3,21 +3,21 @@ import {Form , Input , Button, message} from 'antd'
 import {Link, useNavigate} from 'react-router-dom'
 //importing the login api function
 import {LoginUser} from "../apicalls/users.js"
-//import { useDispatch } from 'react-redux'
-//import { setUser } from '../redux/userSlice.js'
+import { useDispatch } from 'react-redux'
+import { setUser } from '../redux/userSlice.js'
 
 function Login() {
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const navigate=useNavigate()
   const handleSubmission=async (value)=>{
     
     try{
       const res = await LoginUser(value)
-      //console.log(res)
+      console.log(res, "consoling respose in login")
       if(res.success){
         message.success(res.message) //to populate user signed in meesgae on ui - inbuilt antd
         localStorage.setItem("token", res.token)
-        // dispatch(setUser(res.user)) //coming from backend
+        dispatch(setUser(res.user)) //dispatching to redux store coming from backend
         navigate("/")  //navigating to home
       }
       else{

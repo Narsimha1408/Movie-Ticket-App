@@ -5,9 +5,9 @@ import {useSelector} from 'react-redux';
 const { TextArea } = Input;
 
 
-const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
+
+const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData}) => {
   const {user} = useSelector((state)=>state.user)
-  console.log(user)
 
   const handleSubmit=async (payload)=>{
     try{
@@ -17,6 +17,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen}) => {
       if(res.success){
         setIsModalOpen(false)
         message.success(res.message)
+        getTheatresData()
       }
       else{
         message.error(res.message)

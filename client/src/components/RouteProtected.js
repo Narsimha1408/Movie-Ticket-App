@@ -3,6 +3,7 @@ import { getCurrentUser } from "../apicalls/users";
 import { Link, useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/loaderSlice";
 import { setUser } from "../redux/userSlice";
+import {clearAuthHeader} from "../apicalls/index"
 import { useDispatch, useSelector } from "react-redux";
 import { Layout, Menu, message } from "antd";
 import {
@@ -15,8 +16,16 @@ const { Header } = Layout;
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user);
+  console.log(user, "protected route first")
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleLogout=()=>{
+    localStorage.removeItem("token")
+    // clearAuthHeader()
+    dispatch(setUser(null))
+  }
+
 
   const navItems = [
     //antd way of creating menu in top navigation
@@ -43,7 +52,7 @@ const ProtectedRoute = ({ children }) => {
         },
         {
           label: (
-            <Link to="/login" onClick={() => localStorage.removeItem("token")}>
+            <Link to="/login" onClick={handleLogout}>
               {" "}
               Log out
             </Link>
@@ -57,11 +66,12 @@ const ProtectedRoute = ({ children }) => {
   console.log(user);
   const getValidUser = async () => {
     try {
+      console.log("iam running", user)
       dispatch(showLoading()); //before the data get fetched
       const response = await getCurrentUser(); //getting the current user deatils
       if (response.success) {
         dispatch(setUser(response.data)); //setting the users data in the redux
-
+        console.log("iam running 2", response, user)
       } else {
         dispatch(setUser(null));
         message.error(response.message);

@@ -1,4 +1,4 @@
-import { axiosInstance } from "./index.js";
+import axiosInstance from "./index.js";
 
 export const RegisterUser = async (value)=>{
     try{
