@@ -24,7 +24,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData}) =>
       }
     }
     catch(error){
-      console.log(error)
+      message.error(error.message)
     }
     
   }
