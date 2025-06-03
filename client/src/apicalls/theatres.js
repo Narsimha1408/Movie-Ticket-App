@@ -29,7 +29,7 @@ export const UpdateTheatre = async (payload)=>{
 export const DeleteTheatre = async (payload) => {
 
     try{
-        const response= await axiosInstance.delete("api/theatre/delete-theatre", payload)
+        const response= await axiosInstance.delete("api/theatre/delete-theatre", {data: payload}) //always send payload as {data: payload} in config to send body. //note: config is second parameter of req
         return response.data
     }
     catch(error){

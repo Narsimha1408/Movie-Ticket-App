@@ -42,9 +42,11 @@ router.put("/update-theatre", async (req,res)=>{
 
 //creating the route to delete the theatre
 
-router.put("/delete-theatre", async (req,res)=>{
+router.delete("/delete-theatre", async (req,res)=>{
     try{
-        await theatreModel.findByIdAndDelete(req.body.theatreId)
+        const {theatreId} = req.body
+        console.log(theatreId)
+        await theatreModel.findByIdAndDelete(theatreId)
         res.send({
             success: true,
             message: "Theatre has been deleted succesfully"

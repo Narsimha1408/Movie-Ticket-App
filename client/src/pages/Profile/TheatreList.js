@@ -5,6 +5,7 @@ import TheatreFormComponent from "./TheatreForm";
 import { useSelector } from "react-redux";
 import { GetAllTheatres } from "../../apicalls/theatres";
 import { Table, } from 'antd';
+import DeleteTheatreModel from "./DeleteTheatreModel";
 
 const TheatreList=()=>{
     const {user} = useSelector((state)=>state.user)
@@ -12,6 +13,7 @@ const TheatreList=()=>{
     const [theatres, setTheatres] = useState(null);
     const [formType, setFormType] = useState("add");
     const [selectedTheatre, setSelectedTheatre] = useState(null);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
 
     const getTheatresData= async ()=>{
@@ -78,7 +80,7 @@ const TheatreList=()=>{
                 return (
                     <div className="d-flex gap-10">
                         <Button onClick={()=>{setIsModalOpen(true); setFormType("edit"); setSelectedTheatre(data)}}><EditOutlined/></Button>
-                        <Button><DeleteOutlined/></Button>
+                        <Button onClick={()=>{setIsDeleteModalOpen(true); setSelectedTheatre(data)}}><DeleteOutlined/></Button>
                     </div>
                 )
             }
@@ -104,8 +106,13 @@ const TheatreList=()=>{
 
                 <Table columns={columns} dataSource={theatres} />
 
-
+                {/* Form modal when you click on add theatres or edit theatres */}
                 {isModalOpen && <TheatreFormComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} getTheatresData={getTheatresData} formType={formType} selectedTheatre={selectedTheatre} setSelectedTheatre={setSelectedTheatre}/>}
+
+                {/* Modal when you click on delete theatre */}
+                {
+                    isDeleteModalOpen && <DeleteTheatreModel isDeleteModalOpen={isDeleteModalOpen} setIsDeleteModalOpen={setIsDeleteModalOpen} selectedTheatre={selectedTheatre} setSelectedTheatre={setSelectedTheatre} getTheatresData={getTheatresData}/>
+                }
             </div>
         </>
     )
