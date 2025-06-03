@@ -1,19 +1,26 @@
 import React from "react";
 import { Button, Form, Input, Row, Col, Modal, message } from "antd";
-import { RegisterTheatre } from "../../apicalls/theatres";
+import { RegisterTheatre, UpdateTheatre } from "../../apicalls/theatres";
 import {useSelector} from 'react-redux';
+import { values } from "lodash";
 const { TextArea } = Input;
 
 
 
-const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData}) => {
+const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, selectedTheatre, setSelectedTheatre, formType}) => {
   const {user} = useSelector((state)=>state.user)
 
   const handleSubmit=async (payload)=>{
     try{
-      console.log(payload)
-      const res = await RegisterTheatre({...payload, owner: user._id}) ///sending form data with user id
-      
+      let res=null;
+      if(formType === "add"){
+        res = await RegisterTheatre({...payload, owner: user._id}) ///sending form data with user id
+      }else{ //formType === "edit"
+        payload.theatreId = selectedTheatre._id
+        console.log("edit values:", payload)
+        res = await UpdateTheatre(payload)
+      }
+      console.log(res)
       if(res.success){
         setIsModalOpen(false)
         message.success(res.message)
@@ -30,7 +37,8 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData}) =>
   }
 
   const handleCancel=()=>{
-    setIsModalOpen(false)
+    setIsModalOpen(false);
+    setSelectedTheatre(null);
   }
 
 
@@ -41,7 +49,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData}) =>
         name="basic"
         layout="vertical"
         style={{ width: "100%" }}
-        initialValues={{ remember: true }}
+        initialValues={selectedTheatre}
         autoComplete="off"
         onFinish={handleSubmit}
 

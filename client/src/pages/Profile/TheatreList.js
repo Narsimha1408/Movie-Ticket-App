@@ -10,6 +10,8 @@ const TheatreList=()=>{
     const {user} = useSelector((state)=>state.user)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [theatres, setTheatres] = useState(null);
+    const [formType, setFormType] = useState("add");
+    const [selectedTheatre, setSelectedTheatre] = useState(null);
 
 
     const getTheatresData= async ()=>{
@@ -72,9 +74,10 @@ const TheatreList=()=>{
             title : 'Action',
             dataIndex: 'action',
             render: (text, data) =>{
+                console.log(data)
                 return (
                     <div className="d-flex gap-10">
-                        <Button><EditOutlined/></Button>
+                        <Button onClick={()=>{setIsModalOpen(true); setFormType("edit"); setSelectedTheatre(data)}}><EditOutlined/></Button>
                         <Button><DeleteOutlined/></Button>
                     </div>
                 )
@@ -95,16 +98,14 @@ const TheatreList=()=>{
         <>
             <div>
                 <div style={{ display: 'flex', justifyContent: 'end'}}>
-                    <Button type="primary" onClick={()=>{setIsModalOpen(true)}}>Add Theatres</Button>
+                    <Button type="primary" onClick={()=>{setIsModalOpen(true); setFormType("add")}}>Add Theatres</Button>
                 </div>  
                 {/* adding antd table */}
 
                 <Table columns={columns} dataSource={theatres} />
 
-                <div>
-                    <button onClick={()=>{setIsModalOpen(true)}}><EditFilled /></button>
-                </div>
-                {isModalOpen && <TheatreFormComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} getTheatresData={getTheatresData}/>}
+
+                {isModalOpen && <TheatreFormComponent isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} getTheatresData={getTheatresData} formType={formType} selectedTheatre={selectedTheatre} setSelectedTheatre={setSelectedTheatre}/>}
             </div>
         </>
     )
