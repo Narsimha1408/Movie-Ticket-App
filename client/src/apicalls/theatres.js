@@ -8,7 +8,7 @@ export const RegisterTheatre = async (payload)=>{
         return response.data
 
     }catch(error){
-        console.log(error)
+       return error.response;
     }
 }
 
@@ -17,11 +17,9 @@ export const UpdateTheatre = async (payload)=>{
     try{
         const response = await axiosInstance.put("api/theatre/update-theatre", payload)
         return response.data
-
     }
     catch(error){
-
-        console.log(error)
+        return error.response;
     }
 
 }
@@ -33,11 +31,11 @@ export const DeleteTheatre = async (payload) => {
         return response.data
     }
     catch(error){
-        console.log(error)
+        return error.response;
     }
 }
 
-//getting all theatres once user in on profile page and theatres tab
+//getting all theatres once user is on his profile page and theatres tab
 
 export const GetAllTheatres = async (payload)=>{
     try {
@@ -46,7 +44,19 @@ export const GetAllTheatres = async (payload)=>{
         return response.data
     }
     catch(error){
-        console.log(error)
+        return error.response;
+    }
+}
+
+//getting all the theatres of multiple users for admin page
+
+export const GetAllTheatresForAdmin = async (payload)=>{
+    try{
+        const response=await axiosInstance.get("api/theatre/get-all-theatres-for-admin")
+        return response.data
+    }
+    catch(error){
+        return error.response;
     }
 
 }

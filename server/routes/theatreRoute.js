@@ -2,6 +2,7 @@ const express=require("express")
 const router=express.Router()
 const theatreModel=require("../models/TheatreModel.js")
 
+
 //creating the post route to create the theatre
 
 router.post("/add-theatre",async (req,res)=>{
@@ -81,6 +82,26 @@ router.get("/get-all-theatres-by-owner", async (req,res)=>{
         })
     }
 
+})
+
+
+//route to get all theatres added by multiple users for admin page
+
+router.get("/get-all-theatres-for-admin", async (req,res)=>{
+    try{
+        const allTheatresForAdmin = await theatreModel.find().populate('owner')
+        res.send({
+            success: true,
+            message: "All theatres fetched!",
+            data: allTheatresForAdmin
+        })
+    }
+    catch(err){
+        res.send({
+            success: false,
+            message: err.message,
+        })
+    }
 })
 
 
