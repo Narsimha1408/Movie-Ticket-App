@@ -65,11 +65,10 @@ const TheatreList=()=>{
           title: 'Status',
           dataIndex: 'status',
           render: (status, data)=>{
-            if(data.status){ 
-                return "Approved"
-            }else{
-                return "Pending/ Blocked"
-            }
+            let color = data.status ? "green" : "red"
+            return <span style={{"color": color}}>
+                {data.status ? "Approved" : "Pending/ Blocked" }
+            </span>
           }
         },
         {

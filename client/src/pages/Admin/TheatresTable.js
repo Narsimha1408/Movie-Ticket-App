@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-import { GetAllTheatresForAdmin } from "../../apicalls/theatres";
+import { GetAllTheatresForAdmin, UpdateTheatre } from "../../apicalls/theatres";
 import { message, Button, Table} from "antd";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../redux/loaderSlice";
@@ -38,9 +38,26 @@ const Theatrestable = ()=>{
         getData()
     },[])
 
-    const handleStatusChange=()=>{
+    const handleStatusChange = async (theatre) => {  //to change the status
+        try{
+            dispatch(showLoading())
+            let values={...Theatres, theatreId: theatre._id, status: !theatre.status}
+            console.log(values)
+            const response = await UpdateTheatre(values) 
+            if(response.success){
+                message.success(response.message);
+                getData();
+            }else{
+                message.error(response.message)
+            }
 
-    }
+        }catch(error){
+            message.error(error.message);
+        }
+        finally{
+            dispatch(hideLoading())
+        }
+    }   
     const columns=[
         {
             title: 'Name',
@@ -65,11 +82,10 @@ const Theatrestable = ()=>{
             title:'Status',
             dataIndex: 'status',
             render: (text, data)=>{
-                if(data.status){
-                    return "Approved"
-                }else{
-                    return "Pending/ Blocked"
-                }
+                let color = data.status ? "green" : "red"
+                return <span style={{"color": color}}>
+                        {data.status ? "Approved" : "Pending/ Blocked" }
+                       </span>
             }
         },
         {
@@ -78,7 +94,7 @@ const Theatrestable = ()=>{
             render: (text, data)=>{
                 return (
                     <div>
-                        {data.status ? <Button onClick={()=>handleStatusChange(data)}>Block</Button> : <Button onClick={()=>handleStatusChange(data)}>Approve</Button>}
+                        {data.status ? <Button style={{"width":"30%","borderColor":"red"}} onClick={()=>handleStatusChange(data)}>Block</Button> : <Button style={{"width":"30%", "borderColor":"green"}} onClick={()=>handleStatusChange(data)}>Approve</Button>}
                     </div>
                 )
             }
