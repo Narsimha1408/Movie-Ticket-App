@@ -1,10 +1,9 @@
-const MovieList =()=>{
+const MovieList = () => {
+  return (
+    <>
+      <p>this is movie list</p>
+    </>
+  );
+};
 
-    return (
-        <>
-        <p>this is movie list</p>
-        </>
-    )
-}
-
-export default MovieList
+export default MovieList;

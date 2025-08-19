@@ -16,16 +16,15 @@ const { Header } = Layout;
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useSelector((state) => state.user);
-  console.log(user, "protected route first")
+  console.log(user, "protected route first");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout=()=>{
-    localStorage.removeItem("token")
+  const handleLogout = () => {
+    localStorage.removeItem("token");
     // clearAuthHeader()
-    dispatch(setUser(null))
-  }
-
+    dispatch(setUser(null));
+  };
 
   const navItems = [
     //antd way of creating menu in top navigation
@@ -66,19 +65,17 @@ const ProtectedRoute = ({ children }) => {
   console.log(user);
   const getValidUser = async () => {
     try {
-      console.log("iam running", user)
+      console.log("iam running", user);
       dispatch(showLoading()); //before the data get fetched
       const response = await getCurrentUser(); //getting the current user deatils
       if (response.success) {
         dispatch(setUser(response.data)); //setting the users data in the redux
-        console.log("iam running 2", response, user)
+        console.log("iam running 2", response, user);
       } else {
         dispatch(setUser(null));
         message.error(response.message);
-        
       }
       dispatch(hideLoading()); //hiding the loader when data fetched
-      
     } catch (error) {
       dispatch(hideLoading());
       dispatch(setUser(null));
@@ -93,7 +90,7 @@ const ProtectedRoute = ({ children }) => {
       navigate("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   return (
     user && (
@@ -119,7 +116,6 @@ const ProtectedRoute = ({ children }) => {
           <div style={{ padding: 24, minHeight: 380, background: "#fff" }}>
             {children}
           </div>
-
         </Layout>
       </>
     )

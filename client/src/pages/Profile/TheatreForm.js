@@ -1,47 +1,48 @@
 import React from "react";
 import { Button, Form, Input, Row, Col, Modal, message } from "antd";
 import { RegisterTheatre, UpdateTheatre } from "../../apicalls/theatres";
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 //import { values } from "lodash";
 const { TextArea } = Input;
 
+const TheatreFormComponent = ({
+  isModalOpen,
+  setIsModalOpen,
+  getTheatresData,
+  selectedTheatre,
+  setSelectedTheatre,
+  formType,
+}) => {
+  const { user } = useSelector((state) => state.user);
 
-
-const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, selectedTheatre, setSelectedTheatre, formType}) => {
-  const {user} = useSelector((state)=>state.user)
-
-  const handleSubmit=async (payload)=>{
-    try{
-      let res=null;
-      if(formType === "add"){
-        res = await RegisterTheatre({...payload, owner: user._id}) ///sending form data with user id
-      }else{ //formType === "edit"
-        payload.theatreId = selectedTheatre._id
-        console.log("edit values:", payload)
-        res = await UpdateTheatre(payload)
+  const handleSubmit = async (payload) => {
+    try {
+      let res = null;
+      if (formType === "add") {
+        res = await RegisterTheatre({ ...payload, owner: user._id }); ///sending form data with user id
+      } else {
+        //formType === "edit"
+        payload.theatreId = selectedTheatre._id;
+        console.log("edit values:", payload);
+        res = await UpdateTheatre(payload);
       }
-      console.log(res)
-      if(res.success){
-        setIsModalOpen(false)
-        message.success(res.message)
-        getTheatresData()
+      console.log(res);
+      if (res.success) {
+        setIsModalOpen(false);
+        message.success(res.message);
+        getTheatresData();
+      } else {
+        message.error(res.message);
       }
-      else{
-        message.error(res.message)
-      }
+    } catch (error) {
+      message.error(error.message);
     }
-    catch(error){
-      message.error(error.message)
-    }
-    
-  }
+  };
 
-  const handleCancel=()=>{
+  const handleCancel = () => {
     setIsModalOpen(false);
     setSelectedTheatre(null);
-  }
-
-
+  };
 
   return (
     <Modal open={isModalOpen} onCancel={handleCancel} footer={null} centered>
@@ -52,7 +53,6 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, sel
         initialValues={selectedTheatre}
         autoComplete="off"
         onFinish={handleSubmit}
-
       >
         <Row
           gutter={{
@@ -97,7 +97,9 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, sel
                 <Form.Item
                   label="Email"
                   name="email"
-                  rules={[{ required: true, message: "Please enter your Email" }]}
+                  rules={[
+                    { required: true, message: "Please enter your Email" },
+                  ]}
                 >
                   <Input placeholder="Enter your Email" />
                 </Form.Item>
@@ -107,7 +109,10 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, sel
                   label="Phone Number"
                   name="phone"
                   rules={[
-                    { required: true, message: "Please enter your phone number" },
+                    {
+                      required: true,
+                      message: "Please enter your phone number",
+                    },
                   ]}
                 >
                   <Input
@@ -120,10 +125,11 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, sel
             </Row>
           </Col>
         </Row>
-        <div style={{display:"flex",}}>
+        <div style={{ display: "flex" }}>
           <Form.Item>
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
-              
+            <div
+              style={{ display: "flex", justifyContent: "center", gap: "10px" }}
+            >
               <Button type="primary" htmlType="submit">
                 Submit
               </Button>
@@ -131,9 +137,7 @@ const TheatreFormComponent = ({isModalOpen, setIsModalOpen, getTheatresData, sel
                 Cancel
               </Button>
             </div>
-
           </Form.Item>
-          
         </div>
       </Form>
     </Modal>

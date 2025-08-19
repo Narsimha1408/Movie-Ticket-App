@@ -1,43 +1,40 @@
-import React, {useEffect}from 'react'
-import {Form , Input , Button, message} from 'antd'
-import {Link, useNavigate} from 'react-router-dom'
+import React, { useEffect } from "react";
+import { Form, Input, Button, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 //importing the login api function
-import {LoginUser} from "../apicalls/users.js"
-import { useDispatch } from 'react-redux'
-import { setUser } from '../redux/userSlice.js'
+import { LoginUser } from "../apicalls/users.js";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/userSlice.js";
 
 function Login() {
-  const dispatch = useDispatch()
-  const navigate=useNavigate()
-  const handleSubmission=async (value)=>{
-    
-    try{
-      const res = await LoginUser(value)
-      console.log(res, "consoling respose in login")
-      if(res.success){
-        message.success(res.message) //to populate user signed in meesgae on ui - inbuilt antd
-        localStorage.setItem("token", res.token)
-        dispatch(setUser(res.user)) //dispatching to redux store coming from backend
-        navigate("/")  //navigating to home
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSubmission = async (value) => {
+    try {
+      const res = await LoginUser(value);
+      console.log(res, "consoling respose in login");
+      if (res.success) {
+        message.success(res.message); //to populate user signed in meesgae on ui - inbuilt antd
+        localStorage.setItem("token", res.token);
+        dispatch(setUser(res.user)); //dispatching to redux store coming from backend
+        navigate("/"); //navigating to home
+      } else {
+        message.error(res.message);
       }
-      else{
-        message.error(res.message)
-      }
-    }catch(error){
-      console.log(error)
+    } catch (error) {
+      console.log(error);
     }
-    
-  }
+  };
 
-  useEffect(()=>{
-    if(localStorage.getItem("token")){
-      navigate("/")
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[])
+  }, []);
 
   return (
-     <>
+    <>
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">
@@ -90,8 +87,8 @@ function Login() {
           </section>
         </main>
       </header>
-     </>
-  )
+    </>
+  );
 }
 
-export default Login
+export default Login;

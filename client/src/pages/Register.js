@@ -1,35 +1,32 @@
-import React, {useEffect} from "react";
-import { Form, Input, Button, message} from "antd";
-import {Link, useNavigate} from 'react-router-dom'
-//importing register api function 
+import React, { useEffect } from "react";
+import { Form, Input, Button, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+//importing register api function
 import { RegisterUser } from "../apicalls/users";
 
 function Register() {
-  const navigate = useNavigate()
-  const handleFormSubmission = async (value)=>{
-      //console.log(value)
-      try {
-        const response = await RegisterUser(value)
-        console.log(response.message)
-        if(response.success){
-          message.success(response.message)
-        }
-        else{
-          message.error(response.message)
-        }
-      } catch (error) {
-        console.log(error)
+  const navigate = useNavigate();
+  const handleFormSubmission = async (value) => {
+    //console.log(value)
+    try {
+      const response = await RegisterUser(value);
+      console.log(response.message);
+      if (response.success) {
+        message.success(response.message);
+      } else {
+        message.error(response.message);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  }
-
-  useEffect(()=>{
-      if(localStorage.getItem("token")){
-        navigate("/")
-      }
-      // eslint-disable-next-line
-  },[])
-
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
