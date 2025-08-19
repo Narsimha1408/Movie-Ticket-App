@@ -22,7 +22,6 @@
     "eject": "react-scripts eject",
     "lint": "eslint .",
     "format:check": "prettier --check ."
-
   },
   "eslintConfig": {
     "extends": [
