@@ -1,0 +1,84 @@
+name: Linting and Formatting the Code Changes
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'client/**'
+
+jobs:
+  lint-and-format:
+    name: Performs Linting and Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: cd client && npm install --legacy-peer-deps
+
+      - name: Run ESLint
+        run: cd client && npm run lint
+
+      - name: Run Prettier Check
+        run: cd client && npm run format:check
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# name: Linting and Formating the code changes
+  
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'client/**'
+#   pull_request:
+#     branches:
+#       - main
+#     paths:
+#       - 'client/**'
+
+   
+# jobs:
+#     Continuous Integration:
+#         name: Performs Linting, Formating
+#         runs-on: ubuntu-latest
+#         steps:
+#           -name: checkout the repository
+#            uses: actions/checkout@v3
+
+#           -name: Install Dependencies
+#            run: npm install --legacy-peer-deps
+
+          
+#           -name: Run ESLint
+#            run: npm run lint
+
+#           -name: Run Prettier check
+#            run: npm run format:check
