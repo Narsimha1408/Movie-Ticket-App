@@ -33,6 +33,7 @@ const Admin = ()=>{
         navigate("/profile")
 
         }
+        // eslint-disable-next-line
     },[])
     
 

@@ -3,7 +3,7 @@ import { getCurrentUser } from "../apicalls/users";
 import { Link, useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/loaderSlice";
 import { setUser } from "../redux/userSlice";
-import {clearAuthHeader} from "../apicalls/index"
+//import {clearAuthHeader} from "../apicalls/index"
 import { useDispatch, useSelector } from "react-redux";
 import { Layout, Menu, message } from "antd";
 import {

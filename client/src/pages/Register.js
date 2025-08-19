@@ -36,7 +36,7 @@ function Register() {
       <header className="App-header">
         <main className="main-area mw-500 text-center px-3">
           <section className="left-section">
-            <h1>Register to BookYourTicket</h1>
+            <h1>Register to BookyourTicket</h1>
           </section>
           <section className="right-section">
             <Form layout="vertical" onFinish={handleFormSubmission}>

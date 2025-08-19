@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Form, Input, Row, Col, Modal, message } from "antd";
 import { RegisterTheatre, UpdateTheatre } from "../../apicalls/theatres";
 import {useSelector} from 'react-redux';
-import { values } from "lodash";
+//import { values } from "lodash";
 const { TextArea } = Input;
 
 

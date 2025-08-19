@@ -36,6 +36,7 @@ const Theatrestable = ()=>{
 
     useEffect(()=>{
         getData()
+        // eslint-disable-next-line
     },[])
 
     const handleStatusChange = async (theatre) => {  //to change the status

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {Button, message} from 'antd';
-import { EditFilled, EditOutlined, DeleteOutlined } from '@ant-design/icons'
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import TheatreFormComponent from "./TheatreForm";
 import { useSelector } from "react-redux";
 import { GetAllTheatres } from "../../apicalls/theatres";
@@ -93,6 +93,7 @@ const TheatreList=()=>{
         if (user) {
         getTheatresData();
         }
+        // eslint-disable-next-line
     }, [user]);
 
     return (
